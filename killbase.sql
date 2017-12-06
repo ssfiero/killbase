@@ -9,7 +9,7 @@ drop table if exists targets;
 
 -- // Create tables
 
-create table assassins (id serial Primary Key, full_name text, weapon text, contract_info text, min_price int, rating float, number_of_kills int, age int);
+create table assassins (id serial Primary Key, full_name text, codename text, weapon text, contact_info text, min_price int, rating float, number_of_kills int, age int);
 
 create table contracts (id serial Primary Key, target text, client text, budget int, completed text, who_completed text);
 
@@ -21,23 +21,23 @@ create table targets(id serial Primary Key, name text, location text, photo text
 
 -- // Add data into assassins table
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Alexander Duggan', 'The Jackal', 'Sniper rifle', 31, 45, 7.5, 28);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Alexander Duggan', 'The Jackal', 'Sniper rifle', 'alex@gmail.com', 45, 7.5, 28, 31);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Anton Chigurh', 'Old Man', 'Pneumatic bolt gun', 52, 40, 9, 72);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Anton Chigurh', 'Old Man', 'Pneumatic bolt gun', 'chiggy@gmail.com', 40, 9, 72, 52);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('', 'Ghost Dog', 'Pistol', 28, 20, 6.5, 35);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('', 'Ghost Dog', 'Pistol', 'blank@ghost.org', 20, 6.5, 35, 28);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Jason Bourne', '', 'Parkour', 27, 25, 7, 48);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Jason Bourne', '', 'Parkour', 'jb@nsa.gov', 25, 7, 48, 27);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('John Wick', 'Baba Yaga', 'Lots of guns', 35, 50, 9.5, 433);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('John Wick', 'Baba Yaga', 'Lots of guns', 'keanu@msn.com', 50, 9.5, 433, 35);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Jules Winnfield', '', 'Pistol', 26, 15, 6.5, 13);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Jules Winnfield', '', 'Pistol', 'jules@yahoo.com', 15, 6.5, 13, 26);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Leon', 'The Professional', 'Everything', 41, 30, 8.5, 87);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Leon', 'The Professional', 'Everything', 'leo@gmail.com', 30, 8.5, 87, 41);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Nikita Mears', 'Nikita, LaFemme Nikita', 'Silenced pistols', 28, 30, 7, 32);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Nikita Mears', 'Nikita, LaFemme Nikita', 'Silenced pistols', 'nikki@gmail.com', 30, 7, 32, 28);
 
-insert into assassins (full_name, weapon, contract_info, min_price, rating, number_of_kills, age) values ('Pickle Rick', 'Solenya', 'Lasers and office supplies', 60, 0, 8, 24);
+insert into assassins (full_name, codename, weapon, contact_info, min_price, rating, number_of_kills, age) values ('Pickle Rick', 'Solenya', 'Lasers and office supplies', 'rickybobby@nascar.org', 0, 8, 24, 60);
 
 
 
@@ -76,3 +76,36 @@ insert into contracts (target, client, budget, completed, who_completed) values 
 insert into contracts (target, client, budget, completed, who_completed) values ('San D''Antonio', 'Winston', 25, '', '');
 
 insert into contracts (target, client, budget, completed, who_completed) values ('Sonny Valerio', 'Ray Vargo', 10, '', '');
+
+
+
+-- // Exercises
+
+-- // 1. Select all the assassins, sorted by number of kills.
+
+select assassins
+  from assassins
+  order by number_of_kills ASC;
+
+
+-- // 2. Select all of the assassins older than 30 years old.
+
+select assassins
+  from assassins
+  where age > 30
+  order by age ASC;
+
+
+-- // 3. Select all of the contracts that can afford to pay Nikita Mears. (Budget >= her price).
+
+select contracts
+  from contracts
+  where budget >= 30;
+
+
+-- // 4 Count the number of assassins that are capable of taking out Norman Stansfield. (Their rating >= his security level)
+select count(assassins)
+  from assassins
+  where rating >= 7;
+
+  
