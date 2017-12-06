@@ -103,9 +103,25 @@ select contracts
   where budget >= 30;
 
 
--- // 4 Count the number of assassins that are capable of taking out Norman Stansfield. (Their rating >= his security level)
+-- // 4. Count the number of assassins that are capable of taking out Norman Stansfield. (Their rating >= his security level)
 select count(assassins)
   from assassins
   where rating >= 7;
 
-  
+
+-- // 5. Get the total amount it would require to hire every available assassin.
+select sum(min_price)
+  from assassins;
+
+
+-- // 6. Assign the following jobs to these assassins:
+        -- Jules Winnfield -> Butch Coolidge
+        -- The Jackal -> The Jaguar
+        -- John Wick -> The Jaguar
+        -- Leon -> Norman Stansfield
+        -- Pickle Rick -> Sonny Valerio
+        -- Jules Winnfield -> Santino D'Antonio
+        -- Nikita Mears -> Norman Stansfield
+        -- Ghost Dog -> Butch Coolidge
+
+select * from assassins inner join targets on ;
