@@ -4,6 +4,7 @@ drop table if exists assassins;
 drop table if exists contracts;
 drop table if exists clients;
 drop table if exists targets;
+drop table if exists assassin_contracts;
 
 
 
@@ -84,28 +85,28 @@ insert into contracts (target, client, budget, completed, who_completed) values 
 -- // 1. Select all the assassins, sorted by number of kills.
 
 select assassins
-  from assassins
+from assassins
   order by number_of_kills ASC;
 
 
 -- // 2. Select all of the assassins older than 30 years old.
 
 select assassins
-  from assassins
-  where age > 30
+from assassins
+where age > 30
   order by age ASC;
 
 
 -- // 3. Select all of the contracts that can afford to pay Nikita Mears. (Budget >= her price).
 
 select contracts
-  from contracts
+from contracts
   where budget >= 30;
 
 
 -- // 4. Count the number of assassins that are capable of taking out Norman Stansfield. (Their rating >= his security level)
 select count(assassins)
-  from assassins
+from assassins
   where rating >= 7;
 
 
@@ -115,13 +116,38 @@ select sum(min_price)
 
 
 -- // 6. Assign the following jobs to these assassins:
-        -- Jules Winnfield -> Butch Coolidge
-        -- The Jackal -> The Jaguar
-        -- John Wick -> The Jaguar
-        -- Leon -> Norman Stansfield
-        -- Pickle Rick -> Sonny Valerio
-        -- Jules Winnfield -> Santino D'Antonio
-        -- Nikita Mears -> Norman Stansfield
-        -- Ghost Dog -> Butch Coolidge
+  -- Jules Winnfield -> Butch Coolidge
+  -- The Jackal -> The Jaguar
+  -- John Wick -> The Jaguar
+  -- Leon -> Norman Stansfield
+  -- Pickle Rick -> Sonny Valerio
+  -- Jules Winnfield -> Santino D'Antonio
+  -- Nikita Mears -> Norman Stansfield
+  -- Ghost Dog -> Butch Coolidge
 
-select * from assassins inner join targets on ;
+create table assassin_contracts (assassin_id int, assassin_name text, target_id int, target_name text);
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (6, 'Jules Winnfield', 1, 'Butch Coolidge');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (1, 'The Jackal', 2, 'Thge Jaguar');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (5, 'John Wick', 2, 'The Jaguar');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (7, 'Leon', 3, 'Norman Stansfield');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (9, 'Pickle Rick', 5, 'Sonny Valerio');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (6, 'Jules Winnfield', 4, 'Santino D''Antonio');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (8, 'Nikita Mears', 3, 'Norman Stansfield');
+
+insert into assassin_contracts (assassin_id, assassin_name, target_id, target_name) values (3, 'Ghost Dog', 1, 'Butch Coolidge');
+
+
+-- 7. Count the number of currently contracted assassins.
+
+select count(distinct(assassin_id))
+from assassin_contracts;
+
+
+-- 8. Find the lowest total cost to complete all assigned contracts.
